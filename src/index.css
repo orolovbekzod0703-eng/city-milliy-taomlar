@@ -19,9 +19,18 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
 }
 
 body {
+  width: 100%;
+  overflow-x: hidden;
   background-color: var(--color-parchment);
   color: var(--color-ink);
   font-family: var(--font-body);
