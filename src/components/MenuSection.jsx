@@ -36,7 +36,7 @@ export default function MenuSection() {
 
       setCategories(cats || [])
       setItems(menuItems || [])
-      setActiveCat((cats && cats[0]?.id) || null)
+      setActiveCat('all')
       setLoading(false)
     }
 
@@ -47,7 +47,7 @@ export default function MenuSection() {
   }, [])
 
   const visibleItems = useMemo(
-    () => items.filter((it) => it.category_id === activeCat),
+    () => (activeCat === 'all' ? items : items.filter((it) => it.category_id === activeCat)),
     [items, activeCat]
   )
 
