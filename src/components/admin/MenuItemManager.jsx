@@ -44,7 +44,7 @@ export default function MenuItemManager({ categories, items, onChange }) {
   async function removeItem(item) {
     if (!confirm(`"${item.name}" taomini o'chirishni tasdiqlaysizmi?`)) return
     await supabase.from('menu_items').delete().eq('id', item.id)
-    if (item.image_url) {
+    if (item.image_url && item.image_url.includes(`/${MENU_IMAGES_BUCKET}/`)) {
       const fileName = item.image_url.split('/').pop()
       if (fileName) await supabase.storage.from(MENU_IMAGES_BUCKET).remove([fileName])
     }

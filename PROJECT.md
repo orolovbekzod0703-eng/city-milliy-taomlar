@@ -41,7 +41,7 @@ src/
 │   ├── MenuCard.jsx                # Bitta taomning kartochkasi (rasm, nomi, narxi)
 │   ├── Footer.jsx                    # Pastki qism: kontakt, ish vaqti, admin havolasi
 │   ├── ArchFrieze.jsx                 # Dekorativ SVG chiziq (gumbaz motividagi bezak)
-│   ├── ImageUploader.jsx               # Admin formadagi rasm yuklash komponenti
+│   ├── ImageUploader.jsx               # Admin formadagi rasm yuklash (fayldan yoki URL havola orqali)
 │   ├── ProtectedRoute.jsx               # /admin sahifasini faqat login qilganlarga ochadi
 │   └── admin/
 │       ├── CategoryManager.jsx          # Kategoriya qo'shish/tahrirlash/o'chirish/tartiblash

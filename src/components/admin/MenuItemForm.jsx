@@ -25,6 +25,7 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
       : { ...emptyForm, category_id: categories[0]?.id || '' }
   )
   const [imageBlob, setImageBlob] = useState(null)
+  const [imageUrlInput, setImageUrlInput] = useState(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
@@ -53,6 +54,8 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
         if (uploadError) throw uploadError
         const { data: publicUrlData } = supabase.storage.from(MENU_IMAGES_BUCKET).getPublicUrl(fileName)
         image_url = publicUrlData.publicUrl
+      } else if (imageUrlInput) {
+        image_url = imageUrlInput
       }
 
       const payload = {
@@ -81,7 +84,7 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
         if (insertError) throw insertError
       }
 
-      if (imageBlob && oldImageUrl && oldImageUrl !== image_url) {
+      if (oldImageUrl && oldImageUrl !== image_url && oldImageUrl.includes(`/${MENU_IMAGES_BUCKET}/`)) {
         const oldFileName = oldImageUrl.split('/').pop()
         if (oldFileName) await supabase.storage.from(MENU_IMAGES_BUCKET).remove([oldFileName])
       }
@@ -109,7 +112,7 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
             <label className="block text-xs font-medium text-[var(--color-ink)]/60 mb-1.5">Taom rasmi</label>
-            <ImageUploader previewUrl={item?.image_url} onFileReady={setImageBlob} />
+            <ImageUploader previewUrl={item?.image_url} onFileReady={setImageBlob} onUrlReady={setImageUrlInput} />
           </div>
 
           <div>
