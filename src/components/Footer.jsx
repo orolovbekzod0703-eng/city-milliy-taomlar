@@ -45,7 +45,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 hover:text-[var(--color-gold-light)] transition-colors"
               >
-                <Instagram size={16} className="shrink-0 text-[var(--color-terracotta)]" />
+                <InstagramIcon size={16} className="shrink-0 text-[var(--color-terracotta)]" />
                 @city_milliy_taomlari
               </a>
             </li>

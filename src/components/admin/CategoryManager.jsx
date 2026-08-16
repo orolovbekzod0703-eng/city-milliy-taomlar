@@ -47,10 +47,10 @@ export default function CategoryManager({ categories, onChange }) {
   }
 
   async function removeCategory(id) {
-    if (!confirm("Bu kategoriyani o'chirishni tasdiqlaysizmi? Ichidagi taomlar ham ta'sirlanishi mumkin.")) return
+    if (!confirm("DIQQAT: bu kategoriyani o'chirsangiz, ichidagi BARCHA taomlar ham butunlay o'chib ketadi. Davom etasizmi?")) return
     const { error: deleteError } = await supabase.from('categories').delete().eq('id', id)
     if (deleteError) {
-      setError("Kategoriyani o'chirib bo'lmadi. Avval undagi taomlarni boshqa kategoriyaga o'tkazing yoki o'chiring.")
+      setError("Kategoriyani o'chirib bo'lmadi. Qayta urinib ko'ring.")
       return
     }
     onChange()

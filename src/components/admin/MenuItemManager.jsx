@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Plus, Pencil, Trash2, ImageOff } from 'lucide-react'
-import { supabase } from '../../lib/supabase'
+import { supabase, MENU_IMAGES_BUCKET } from '../../lib/supabase'
 import MenuItemForm from './MenuItemForm'
 
 function formatPrice(price) {
@@ -44,6 +44,10 @@ export default function MenuItemManager({ categories, items, onChange }) {
   async function removeItem(item) {
     if (!confirm(`"${item.name}" taomini o'chirishni tasdiqlaysizmi?`)) return
     await supabase.from('menu_items').delete().eq('id', item.id)
+    if (item.image_url) {
+      const fileName = item.image_url.split('/').pop()
+      if (fileName) await supabase.storage.from(MENU_IMAGES_BUCKET).remove([fileName])
+    }
     onChange()
   }
 

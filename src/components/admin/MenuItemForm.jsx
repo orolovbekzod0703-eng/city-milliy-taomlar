@@ -42,6 +42,7 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
     setError('')
 
     let image_url = item?.image_url || null
+    const oldImageUrl = item?.image_url || null
 
     try {
       if (imageBlob) {
@@ -78,6 +79,11 @@ export default function MenuItemForm({ categories, item, onClose, onSaved }) {
           .from('menu_items')
           .insert({ ...payload, sort_order: nextOrder })
         if (insertError) throw insertError
+      }
+
+      if (imageBlob && oldImageUrl && oldImageUrl !== image_url) {
+        const oldFileName = oldImageUrl.split('/').pop()
+        if (oldFileName) await supabase.storage.from(MENU_IMAGES_BUCKET).remove([oldFileName])
       }
 
       onSaved()
